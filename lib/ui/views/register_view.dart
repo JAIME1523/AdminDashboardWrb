@@ -49,8 +49,9 @@ class RegisterView extends StatelessWidget {
                         TextFormField(
                           // validator: (value) {},
                           validator: (value) {
-                            if (!EmailValidator.validate(value ?? ''))
+                            if (!EmailValidator.validate(value ?? '')) {
                               return 'Email no valido';
+                            }
                   
                             return null;
                           },

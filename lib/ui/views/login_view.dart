@@ -34,8 +34,9 @@ class LoginView extends StatelessWidget {
                       children: [
                         TextFormField(
                           validator: (value) {
-                            if (!EmailValidator.validate(value ?? ''))
+                            if (!EmailValidator.validate(value ?? '')) {
                               return 'Email no valido';
+                            }
 
                             return null;
                           },
