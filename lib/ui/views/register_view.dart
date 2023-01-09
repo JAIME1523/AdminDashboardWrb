@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/providers/auth_provider.dart';
 import 'package:admin_dashboard/providers/register_form_provider.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/ui/bouttons/custom_outline_button.dart';
@@ -52,7 +53,7 @@ class RegisterView extends StatelessWidget {
                             if (!EmailValidator.validate(value ?? '')) {
                               return 'Email no valido';
                             }
-                  
+
                             return null;
                           },
                           onChanged: (value) {
@@ -75,11 +76,11 @@ class RegisterView extends StatelessWidget {
                             if (value.length < 6) {
                               return 'Contraseña mayor a 6 caracteres';
                             }
-                  
+
                             return null;
                           },
                           onChanged: (value) {
-                            registerFormProvider.name = value;
+                            registerFormProvider.pasword = value;
                           },
                           obscureText: true,
                           style: const TextStyle(
@@ -93,7 +94,16 @@ class RegisterView extends StatelessWidget {
                         const SizedBox(height: 20),
                         CustomOutlineButtom(
                           onPressed: () {
-                            registerFormProvider.validateFrom();
+                            final validForm =
+                                registerFormProvider.validateFrom();
+                            if (!validForm) return;
+                            final authProvider = Provider.of<AuthPorvider>(
+                                context,
+                                listen: false);
+                            authProvider.registrer(
+                                registerFormProvider.email,
+                                registerFormProvider.pasword,
+                                registerFormProvider.name);
                           },
                           text: 'Ingresar',
                           // isFilled: true,
@@ -103,7 +113,8 @@ class RegisterView extends StatelessWidget {
                         LinkText(
                           text: 'Ir login',
                           onPressed: () {
-                            Navigator.pushNamed(context, Flurorouter.loginRoute);
+                            Navigator.pushNamed(
+                                context, Flurorouter.loginRoute);
                           },
                         ),
                       ],

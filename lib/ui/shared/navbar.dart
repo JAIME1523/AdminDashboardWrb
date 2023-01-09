@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/providers/side_menu_provider.dart';
 import 'package:admin_dashboard/ui/shared/widget/navbar_avatar.dart';
 import 'package:admin_dashboard/ui/shared/widget/notification_indicator.dart';
 import 'package:flutter/material.dart';
@@ -21,14 +22,18 @@ class Navbar extends StatelessWidget {
             //Todo: Icono de la hamburgesa,
             if (size.width <= 700)
               IconButton(
-                  onPressed: () {}, icon: const Icon(Icons.menu_outlined)),
+                  onPressed: () {
+                    print('object');
+                    SideMenuProvider.openMenu();
+                  }, icon: const Icon(Icons.menu_outlined)),
             const SizedBox(
               width: 20,
             ),
             //SEArch input
             if (size.width > 391)
+         
               ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 250),
+                constraints: const BoxConstraints(maxWidth: 200),
                 child: const SearchText(),
               ),
             const Spacer(),

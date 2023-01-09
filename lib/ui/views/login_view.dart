@@ -33,6 +33,9 @@ class LoginView extends StatelessWidget {
                     child: Column(
                       children: [
                         TextFormField(
+                          onFieldSubmitted: (_) {
+                            onFormSubmit(loginFromProvider, authProvider);
+                          },
                           validator: (value) {
                             if (!EmailValidator.validate(value ?? '')) {
                               return 'Email no valido';
@@ -53,8 +56,11 @@ class LoginView extends StatelessWidget {
                         ),
                         const SizedBox(height: 20),
                         TextFormField(
+                          onFieldSubmitted: (_) {
+                            onFormSubmit(loginFromProvider, authProvider);
+                          },
                           onChanged: ((value) {
-                            loginFromProvider.email = value;
+                            loginFromProvider.pasword = value;
                           }),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -78,11 +84,7 @@ class LoginView extends StatelessWidget {
                         const SizedBox(height: 20),
                         CustomOutlineButtom(
                           onPressed: () {
-                            final isValid = loginFromProvider.validateFrom();
-                            if (isValid) {
-                              authProvider.login(loginFromProvider.email,
-                                  loginFromProvider.pasword);
-                            }
+                            onFormSubmit(loginFromProvider, authProvider);
                           },
                           text: 'Ingresar',
                           // isFilled: true,
@@ -104,5 +106,13 @@ class LoginView extends StatelessWidget {
         );
       }),
     );
+  }
+
+  void onFormSubmit(
+      LoginFromProvider loginFromProvider, AuthPorvider authProvider) {
+    final isValid = loginFromProvider.validateFrom();
+    if (isValid) {
+      authProvider.login(loginFromProvider.email, loginFromProvider.pasword);
+    }
   }
 }

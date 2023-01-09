@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
 
-class SideMenuProvider {
+class SideMenuProvider extends ChangeNotifier {
   static late AnimationController menuController;
   static bool isOPen = false;
+
+  String _currentPage = '';
+
+  String get currentPage {
+    return _currentPage;
+  }
+
+  void setCurrentPageUrl(String routRoute) {
+    _currentPage = routRoute;
+    Future.delayed(const Duration(milliseconds: 100), () {
+      notifyListeners();
+    });
+  }
 
   static Animation<double> movement = Tween<double>(begin: -200, end: 0)
       .animate(
@@ -18,7 +31,7 @@ class SideMenuProvider {
   }
 
   static void closeMenu() {
-    isOPen = true;
+    isOPen = false;
     //play en la animacion
     menuController.reverse();
   }
