@@ -21,7 +21,6 @@ class CafeApi {
 
       return resp.data;
     } catch (e) {
-      print(e);
       throw ('error en el Get');
     }
   }

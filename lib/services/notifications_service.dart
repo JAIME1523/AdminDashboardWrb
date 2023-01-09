@@ -9,7 +9,7 @@ class NotificationsService {
       backgroundColor: Colors.red.withOpacity(0.9),
       content: Text(
         message,
-        style: TextStyle(color: Colors.white, fontSize: 20),
+        style: const TextStyle(color: Colors.white, fontSize: 20),
       ),
     );
 

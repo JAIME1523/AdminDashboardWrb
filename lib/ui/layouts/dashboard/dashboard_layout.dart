@@ -31,7 +31,7 @@ class _DashboardLayoutState extends State<DashboardLayout>
             children: [
               Row(
                 children: [
-                  //TODO: esto depende sies mas de 700px
+                  //esto depende sies mas de 700px
                   if (size.width >= 700) const Sidebar(),
                   Expanded(
                     child: Column(
@@ -55,7 +55,7 @@ class _DashboardLayoutState extends State<DashboardLayout>
                     animation: SideMenuProvider.menuController,
                     builder: (context, _) => Stack(
                           children: [
-                            //TODO: background
+                            // background
                             if (SideMenuProvider.isOPen)
                               AnimatedOpacity(
                                   opacity: SideMenuProvider.opacity.value,

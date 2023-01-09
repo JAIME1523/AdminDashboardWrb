@@ -13,7 +13,6 @@ class AuthPorvider extends ChangeNotifier {
   AuthPorvider() {
     isAuthenticated();
   }
-  String? _token;
   AuthStatus authStatus = AuthStatus.checking;
   Usuario? user;
 
@@ -23,7 +22,6 @@ class AuthPorvider extends ChangeNotifier {
       "password": password,
     };
     CafeApi.httpPost('/auth/login', data).then((json) {
-      print(json);
       final authResponse = AtuhResponse.fromMap(json);
       user = authResponse.usuario;
       authStatus = AuthStatus.authenticated;
@@ -36,16 +34,6 @@ class AuthPorvider extends ChangeNotifier {
       NotificationsService.showSnackbarError('Verificar sus credencialesa $e');
     });
 
-    // //TODO:peticion http
-    // _token = 'asdasda.asdasd.asdasd';
-    // LocalStorage.prefs!.setString('token', _token!);
-    // print('almacenar el JWT: $_token');
-
-    // //TODO:Navegar al Dashboard
-    // authStatus = AuthStatus.authenticated;
-    // NavigationService.replaceTo(Flurorouter.dashboardRoute);
-    // notifyListeners();
-    // // isAuthenticated();
   }
 
   registrer(String email, password, name) {
@@ -55,7 +43,6 @@ class AuthPorvider extends ChangeNotifier {
       "password": password,
     };
     CafeApi.httpPost('/usuarios', data).then((json) {
-      print(json);
       final authResponse = AtuhResponse.fromMap(json);
       user = authResponse.usuario;
       authStatus = AuthStatus.authenticated;
@@ -67,16 +54,6 @@ class AuthPorvider extends ChangeNotifier {
       NotificationsService.showSnackbarError('Verificar sus credencialesa');
     });
 
-    // //TODO:peticion http
-    // _token = 'asdasda.asdasd.asdasd';
-    // LocalStorage.prefs!.setString('token', _token!);
-    // print('almacenar el JWT: $_token');
-
-    // //TODO:Navegar al Dashboard
-    // authStatus = AuthStatus.authenticated;
-    // NavigationService.replaceTo(Flurorouter.dashboardRoute);
-    // notifyListeners();
-    // // isAuthenticated();
   }
 
   Future<bool> isAuthenticated() async {
@@ -87,7 +64,7 @@ class AuthPorvider extends ChangeNotifier {
       return false;
     }
 
-    //TODO: IR al back end a ver si esxiste el JWT
+    // IR al back end a ver si esxiste el JWT
 
     try {
       final response = await CafeApi.httpGet('/auth');
