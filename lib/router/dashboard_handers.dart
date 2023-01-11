@@ -2,6 +2,7 @@ import 'package:admin_dashboard/providers/auth_provider.dart';
 import 'package:admin_dashboard/providers/side_menu_provider.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/ui/views/blank_view.dart';
+import 'package:admin_dashboard/ui/views/categories_vew.dart';
 import 'package:admin_dashboard/ui/views/icons_view%20copy.dart';
 import 'package:admin_dashboard/ui/views/login_view.dart';
 import 'package:fluro/fluro.dart';
@@ -43,6 +44,18 @@ class DashboardHandlers {
       return const LoginView();
     }
   }));
+
+     static Handler categories = Handler(handlerFunc: ((context, parameters) {
+    final authPorvider = Provider.of<AuthPorvider>(context!);
+    Provider.of<SideMenuProvider>(context, listen: false).setCurrentPageUrl(Flurorouter.categoriesRoute);
+
+    if (authPorvider.authStatus == AuthStatus.authenticated) {
+      return const CategoriesView();
+    } else {
+      return const LoginView();
+    }
+  }));
+
 
 
 }

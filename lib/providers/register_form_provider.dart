@@ -8,12 +8,10 @@ class RegsiterFormProvider extends ChangeNotifier {
 
   validateFrom() {
     if (fromKey.currentState!.validate()) {
-      print('Login');
-      print(email);
-      print(pasword);
+     
       return true;
     } else {
-      print('No valido');
+    
       return false;
     }
   }

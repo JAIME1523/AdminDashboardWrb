@@ -1,18 +1,21 @@
-import 'package:admin_dashboard/api/cafe_api.dart';
-import 'package:admin_dashboard/services/notifications_service.dart';
-import 'package:admin_dashboard/ui/layouts/splash/splash_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:admin_dashboard/api/cafe_api.dart';
+
+
 import 'package:admin_dashboard/providers/auth_provider.dart';
 import 'package:admin_dashboard/providers/side_menu_provider.dart';
+import 'package:admin_dashboard/providers/categories_provider.dart';
+
 import 'package:admin_dashboard/router/router.dart';
 
 import 'package:admin_dashboard/services/local_storage.dart';
+import 'package:admin_dashboard/services/notifications_service.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
 
 import 'package:admin_dashboard/ui/layouts/auth/auth_layout.dart';
-
+import 'package:admin_dashboard/ui/layouts/splash/splash_layout.dart';
 import 'ui/layouts/dashboard/dashboard_layout.dart';
 
 void main() async {
@@ -32,7 +35,8 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(lazy: false, create: (_) => AuthPorvider()),
-        ChangeNotifierProvider(lazy: false, create: (_) => SideMenuProvider())
+        ChangeNotifierProvider(lazy: false, create: (_) => SideMenuProvider()),
+        ChangeNotifierProvider(create: (_) => CategoriesProvider()),
       ],
       child: const MyApp(),
     );
@@ -53,11 +57,22 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: Flurorouter.router.generator,
       builder: (_, child) {
         final authProvider = Provider.of<AuthPorvider>(context);
-        return authProvider.authStatus == AuthStatus.checking
-            ? const SplashLayout()
-            : authProvider.authStatus == AuthStatus.authenticated
-                ? DashboardLayout(child: child!)
-                : AuthLayout(child: child!);
+        return Overlay(
+          initialEntries: [
+            OverlayEntry(builder: (BuildContext context) {
+              return authProvider.authStatus == AuthStatus.checking
+                  ? const SplashLayout()
+                  : authProvider.authStatus == AuthStatus.authenticated
+                      ? DashboardLayout(child: child!)
+                      : AuthLayout(child: child!);
+            })
+          ],
+        );
+        // authProvider.authStatus == AuthStatus.checking
+        //     ? const SplashLayout()
+        //     : authProvider.authStatus == AuthStatus.authenticated
+        //         ? DashboardLayout(child: child!)
+        //         : AuthLayout(child: child!);
 
         // return AuthLayout(child: child!);
         // return DashboardLayout(child: child!);

@@ -8,6 +8,7 @@ class BlankView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: ListView(
         physics: const ClampingScrollPhysics(),
         children: [
@@ -19,7 +20,6 @@ class BlankView extends StatelessWidget {
             height: 10,
           ),
           const WhiteCard(
-
             title: 'Blank View',
             child: Text('Esta es una pantalla en blanco'),
           ),
