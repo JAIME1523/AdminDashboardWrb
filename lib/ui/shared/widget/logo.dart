@@ -13,6 +13,7 @@ class Logo extends StatelessWidget {
         children: [
           const Icon(
             Icons.bubble_chart_outlined,
+            // ignore: use_full_hex_values_for_flutter_colors
             color: Color(0xcff7a6bf5),
           ),
           const SizedBox(height: 10),

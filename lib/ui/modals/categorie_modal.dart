@@ -1,11 +1,15 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:admin_dashboard/models/category.dart';
-import 'package:admin_dashboard/providers/categories_provider.dart';
 import 'package:admin_dashboard/services/notifications_service.dart';
 import 'package:admin_dashboard/ui/bouttons/custom_outline_button.dart';
 import 'package:admin_dashboard/ui/inputs/custom_imputs.dart';
 import 'package:admin_dashboard/ui/labels/custom_labes.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
+import 'package:admin_dashboard/providers/categories_provider.dart';
+
+
 
 class CategoriesModal extends StatefulWidget {
   const CategoriesModal({Key? key, this.categoria}) : super(key: key);
@@ -90,6 +94,7 @@ class _CategoriesModalState extends State<CategoriesModal> {
                     await categoryPrvider.editCategory(nombre, id);
                     NotificationsService.showSnackbar('$nombre Actualizado!!');
                   }
+                  // ignore: use_build_context_synchronously
                   Navigator.of(context).pop();
                 } catch (e) {
                   Navigator.of(context).pop();
@@ -110,6 +115,7 @@ class _CategoriesModalState extends State<CategoriesModal> {
   BoxDecoration buildBoxDecoration() => const BoxDecoration(
       borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+      // ignore: use_full_hex_values_for_flutter_colors
       color:  Color(0xfff0f2041),
       boxShadow: [BoxShadow(color: Colors.black26)]);
 }

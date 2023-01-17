@@ -1,13 +1,14 @@
-import 'package:admin_dashboard/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:admin_dashboard/providers/side_menu_provider.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
 import 'package:admin_dashboard/ui/shared/widget/logo.dart';
 import 'package:admin_dashboard/ui/shared/widget/menu_item.dart';
 import 'package:admin_dashboard/ui/shared/widget/text_separator.dart';
+
+import 'package:admin_dashboard/providers/providers.dart';
+
 
 class Sidebar extends StatelessWidget {
   const Sidebar({Key? key}) : super(key: key);
@@ -69,7 +70,8 @@ class Sidebar extends StatelessWidget {
           MyMenuItem(
             text: 'Customer',
             icon: Icons.people_alt_outlined,
-            onPressed: () {},
+           isActive: sideMenuProvider.currentPage == Flurorouter.usersRoute,
+            onPressed: () => navigateTo(Flurorouter.usersRoute),
           ),
           const SizedBox(
             height: 30,

@@ -1,11 +1,15 @@
-import 'package:admin_dashboard/services/notifications_service.dart';
 import 'package:flutter/material.dart';
 
 import 'package:admin_dashboard/api/cafe_api.dart';
+
 import 'package:admin_dashboard/models/https/auth_response.dart';
+import 'package:admin_dashboard/models/usuario.dart';
+
 import 'package:admin_dashboard/router/router.dart';
+
 import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
+import 'package:admin_dashboard/services/notifications_service.dart';
 
 enum AuthStatus { checking, authenticated, notAuthrnticated }
 
@@ -25,15 +29,17 @@ class AuthPorvider extends ChangeNotifier {
       final authResponse = AtuhResponse.fromMap(json);
       user = authResponse.usuario;
       authStatus = AuthStatus.authenticated;
+      
+      LocalStorage.prefs!.setString('token', authResponse.token!);
+
       CafeApi.configureDio();
 
-      LocalStorage.prefs!.setString('token', authResponse.token!);
+      
       NavigationService.replaceTo(Flurorouter.dashboardRoute);
       notifyListeners();
     }).catchError((e) {
       NotificationsService.showSnackbarError('Verificar sus credencialesa $e');
     });
-
   }
 
   registrer(String email, password, name) {
@@ -53,7 +59,6 @@ class AuthPorvider extends ChangeNotifier {
     }).catchError((e) {
       NotificationsService.showSnackbarError('Verificar sus credencialesa');
     });
-
   }
 
   Future<bool> isAuthenticated() async {

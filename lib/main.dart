@@ -1,22 +1,18 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:admin_dashboard/api/cafe_api.dart';
 
-
-import 'package:admin_dashboard/providers/auth_provider.dart';
-import 'package:admin_dashboard/providers/side_menu_provider.dart';
-import 'package:admin_dashboard/providers/categories_provider.dart';
-
 import 'package:admin_dashboard/router/router.dart';
-
-import 'package:admin_dashboard/services/local_storage.dart';
-import 'package:admin_dashboard/services/notifications_service.dart';
-import 'package:admin_dashboard/services/navigation_service.dart';
 
 import 'package:admin_dashboard/ui/layouts/auth/auth_layout.dart';
 import 'package:admin_dashboard/ui/layouts/splash/splash_layout.dart';
 import 'ui/layouts/dashboard/dashboard_layout.dart';
+
+import 'package:admin_dashboard/providers/providers.dart';
+import 'package:admin_dashboard/services/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,6 +33,7 @@ class AppState extends StatelessWidget {
         ChangeNotifierProvider(lazy: false, create: (_) => AuthPorvider()),
         ChangeNotifierProvider(lazy: false, create: (_) => SideMenuProvider()),
         ChangeNotifierProvider(create: (_) => CategoriesProvider()),
+        ChangeNotifierProvider(create: (_) => UsersProvider()),
       ],
       child: const MyApp(),
     );

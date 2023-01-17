@@ -1,4 +1,4 @@
-import 'package:admin_dashboard/providers/side_menu_provider.dart';
+import 'package:admin_dashboard/providers/providers.dart';
 import 'package:admin_dashboard/ui/shared/widget/navbar_avatar.dart';
 import 'package:admin_dashboard/ui/shared/widget/notification_indicator.dart';
 import 'package:flutter/material.dart';
